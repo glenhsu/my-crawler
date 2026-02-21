@@ -2,7 +2,7 @@ name: Daily PTT Crawler
 
 on:
   schedule:
-    - cron: '30 0 * * *'  # 每天 UTC 00:30 (台灣 08:30)
+    - cron: '30 0 * * *'
   workflow_dispatch:
 
 permissions:
@@ -13,19 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          
       - name: Install dependencies
         run: |
           pip install requests beautifulsoup4 lxml
-          
       - name: Run crawler
         run: python crawler.py
-        
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
